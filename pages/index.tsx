@@ -1,15 +1,22 @@
 // import Head from 'next/head'
 
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { Flex, Image, Button, Text } from '@chakra-ui/core'
 import Input from '../components/Input'
-
+import { apiResolver } from 'next/dist/next-server/server/api-utils';
+import axios from 'axios';
 
 export default function Home() {
     const [email, setEmail] = useState('');
 
 
-  function handleSignUpToNewsletter() {}
+  function handleSignUpToNewsletter(e: FormEvent) {
+    e.preventDefault();
+
+
+
+    axios.post('/api/subscribe', {email})
+  }
   
   return (
     <Flex
@@ -30,15 +37,14 @@ export default function Home() {
         width="100%" 
         maxW="400px"
       >
-        <Image marginBottom={8} src="/rocketseat.svg" alt="Rocketseat" />
   
         <Text textAlign="center" fontSize="sm" color="gray.400" marginBottom={2}>
-        Subscribe to the Rocketseat newsletter and receive the best content on programming!
+        Subscribe to the newsletter and receive the best content on programming!
           
         </Text>
   
         <Input
-          placeholder="Seu melhor e-mail"
+          placeholder="Add your email"
           marginTop={2}
           value={email}
           onChange={e => setEmail(e.target.value)}
